@@ -1,5 +1,8 @@
 File.open('sample_input.txt', 'r') do |f1|  
-   line = f1.gets  
-   puts line  
-    
+
+#for the @ symbol
+   while line = f1.gets
+   puts line
+   puts line.scan(/\@\w+/)
+	end
 end  
