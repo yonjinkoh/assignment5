@@ -2,8 +2,9 @@
 require 'Speaker'
 
 test = Speaker.new("test")
+$Big_List = []
 
-File.open('sample_input.txt', 'r') do |f1|  
+File.open('complex_input.txt', 'r') do |f1|  
 
 	 while line = f1.gets
 		puts line
@@ -11,23 +12,27 @@ File.open('sample_input.txt', 'r') do |f1|
 		speaker = line[/\w+/]
 		speakee	= line.scan(/\@\w+/)
 		#puts the speaker name
-	    puts speaker
+	    puts "speaker is #{speaker}"
 	    #puts the recipient
-	    puts speakee
+	    puts "speaker is #{speakee}"
 
 	    	#Checks if speaker exists
 			if test.include?(speaker)
-			puts test.list_speakers
+			#puts test.list_speakers
 
 			else	
 			#if doesn't exists create new person
 			speaker = Speaker.new(speaker)
 			speaker.spoken_to << speakee
-			puts speaker.spoken_to
+			#puts speaker.spoken_to.inspect
+
+			$Big_List << speaker
+			puts "Big List #{$Big_List.inspect}"
+
 			end
 	
 	end
 
-	puts test.list_speakers
+	puts $Big_List.inspect
 
 end
