@@ -1,38 +1,40 @@
 #add speaker class definition
 require 'Speaker'
 
-test = Speaker.new("test")
-$Big_List = []
+# test = Speaker.new("test")
+connections = Hash.new()
+
 
 File.open('complex_input.txt', 'r') do |f1|  
 
-	 while line = f1.gets
+	  while line = f1.gets
 		puts line
 
 		speaker = line[/\w+/]
-		speakee	= line.scan(/\@\w+/)
+		speakee = line.scan(/\@\w+/)
 		#puts the speaker name
-	    puts "speaker is #{speaker}"
+	    #puts "speaker is #{speaker.class}"
 	    #puts the recipient
-	    puts "speaker is #{speakee}"
+	    #puts "speakee is #{speakee.class}"
 
 	    	#Checks if speaker exists
-			if test.include?(speaker)
-			#puts test.list_speakers
-
+			if Speaker.list_speakers.include?(speaker)
+			#if already exist then add speakee to list
+			#for established speaker
+			Speaker.append_speakee(speaker, speakee)
+			
 			else	
 			#if doesn't exists create new person
-			speaker = Speaker.new(speaker)
-			speaker.spoken_to << speakee
-			#puts speaker.spoken_to.inspect
-
-			$Big_List << speaker
-			puts "Big List #{$Big_List.inspect}"
+			#add speakee to hash of class
+			Speaker.new(speaker, speakee)
 
 			end
-	
 	end
+	
+	#Example code to get connections from first speaker
+	puts Speaker.list_connections(Speaker.list_speakers.first).inspect
 
-	puts $Big_List.inspect
-
+	#Example code to get all speakers
+	puts Speaker.list_speakers.inspect
+	#puts test.all_speakers
 end
