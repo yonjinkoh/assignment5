@@ -23,6 +23,11 @@ $connections = Hash.new
 	def self.list_connections(name)
 		return $connections[name.to_sym].flatten
 	end	
+
+	def self.connections
+		return $connections
+	end
+	
 end
 
 
