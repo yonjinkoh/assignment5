@@ -2,6 +2,8 @@
 require_relative 'Speaker'
 require_relative 'Parser'
 require_relative 'Adjacency'
+require 'Matrix'
+require_relative 'Find_Connections'
 
 File.open('sample_input.txt', 'r') do |f1|  
 
@@ -44,7 +46,7 @@ File.open('sample_input.txt', 'r') do |f1|
 	# example = Speaker.list_connections(Speaker.list_speakers.first)
 
 	# #Example code to get all speakers
-	# all_speakers = Speaker.list_speakers
+	all_speakers = Speaker.list_speakers
 	# #puts test.all_speakers
 	# puts all_speakers
 	# example.each do |name| 
@@ -52,8 +54,10 @@ File.open('sample_input.txt', 'r') do |f1|
 	# #puts all_speakers.class
 	# puts all_speakers.index(name)
 	# end
-
+	puts all_speakers
 	test = Adjacency.new(connections_hash)
-	puts test.make_matrix.inspect
+	new_matrix = test.make_matrixarray
+	puts test.symmetrize(new_matrix)
+	# hello = Find_Connections.new(test)
 
 end

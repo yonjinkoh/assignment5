@@ -1,11 +1,11 @@
 class Speaker
 attr_reader :spoken_to,:name
-@@all_speakers = []
+@@all_speakers = [].sort!
 $connections = Hash.new
 
 	def initialize(name, speakee)
 		@name = name.to_sym
-		@spoken_to = []
+		@spoken_to = [].sort!
 		@@all_speakers << name
 		$connections[name.to_sym] = speakee
 	end
@@ -27,7 +27,9 @@ $connections = Hash.new
 	def self.connections
 		return $connections
 	end
-	
+
+
+
 end
 
 
