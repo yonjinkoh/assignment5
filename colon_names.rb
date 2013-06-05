@@ -60,6 +60,6 @@ File.open('sample_input.txt', 'r') do |f1|
 	sym = test.symmetrize(new_matrix)
 	# hello = Find_Connections.new(test)
 
-	puts test.matrix_to_connections(sym)
+	puts test.matrix_to_connections(sym).inspect
 
 end
