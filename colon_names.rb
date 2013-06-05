@@ -5,7 +5,7 @@ require_relative 'Adjacency'
 require 'Matrix'
 require_relative 'Find_Connections'
 
-File.open('sample_input.txt', 'r') do |f1|  
+File.open('complex_input.txt', 'r') do |f1|  
 
 	  while line = f1.gets
 
@@ -41,24 +41,15 @@ File.open('sample_input.txt', 'r') do |f1|
 	connections_hash = Speaker.connections
 	
 
-
-	#Example code to get connections from first speaker
-	# example = Speaker.list_connections(Speaker.list_speakers.first)
-
 	# #Example code to get all speakers
 	all_speakers = Speaker.list_speakers
-	# #puts test.all_speakers
-	# puts all_speakers
-	# example.each do |name| 
-	# puts name
-	# #puts all_speakers.class
-	# puts all_speakers.index(name)
-	# end
-	puts all_speakers
+
+
 	test = Adjacency.new(connections_hash)
 	new_matrix = test.make_matrixarray
 	sym = test.symmetrize(new_matrix)
-	# hello = Find_Connections.new(test)
-	puts test.order_matrix_name(sym).inspect
+
+	final_array = test.order_matrix_name(sym)
+	puts test.print_output(final_array)
 
 end

@@ -12,7 +12,11 @@ require 'Matrix'
 		indexarray = []
 		speakees = @hash[this_speaker.to_sym].flatten.sort!
 		speakees.each do |name|
+
+			if @speakers.index(name) != nil
 			indexarray << @speakers.index(name)
+			end
+
 		end
 		# puts indexarray.inspect
 		#Create row of length @speakers
@@ -70,7 +74,7 @@ require 'Matrix'
 			speaker = []
 			#Search through each row
 			m[i].each_with_index do |x,index|
-				if x == 1
+				if x != 0
 					#check not in diagonal
 					if index != i
 					speaker << names[index]
@@ -99,8 +103,27 @@ require 'Matrix'
 		p = 1
 		master_connections_array = []
 
-		while p < (n) do 
+		while p < (n) do 		
 			matrix = matrix ** p
+
+			if p > 4
+			#normalization number
+			puts matrix.to_a().class
+			to_normalize = matrix.to_a()
+				to_normalize.each_with_index do |x, indexA|
+					x.each_with_index do |y, indexB|
+						if y != 0
+							to_normalize[indexA][indexB] = 1
+						end
+					end
+				end
+			
+			matrix = Matrix.rows(to_normalize)
+
+			end
+
+			puts matrix.trace
+
 
 			order_list = matrix_to_connections(matrix)
 
@@ -111,10 +134,14 @@ require 'Matrix'
 				l = 0
 				while l < order_list_size do
 					if order_list[l] != nil
-					# puts order_list[l].inspect
-					# puts l
-					# puts master_connections_array[p-2].inspect
-					order_list[l] = order_list[l]-master_connections_array[p-2][l]
+		
+					#removes previously occurred link from new links			
+					m = p
+					while m > 0 do
+					order_list[l] = order_list[l]-master_connections_array[m-2][l]
+					m -= 1
+					end
+					
 					end
 					l += 1
 				end
@@ -134,4 +161,24 @@ require 'Matrix'
 
 	end
 
+		def print_output(a)
+		File.open('complex_output.txt', 'w') do |f1|
+			all_speakers = a[0]
+			a_length = a.length
+			all_speakers.each_with_index do |speaker, index| 
+				a.each_with_index do |e,x|
+					if e[index].class == Array
+						if e[index].join(", ").length != 0
+							f1.puts e[index].join(", ")
+						end
+					elsif e[index].class == String
+						if e[index].length != 0
+							f1.puts e[index]
+						end
+					end
+				end
+				f1.puts "\n"
+			end
+		end
+	end
 end
