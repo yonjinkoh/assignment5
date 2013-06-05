@@ -57,7 +57,7 @@ require 'Matrix'
 	#accepts order matrix and list of speakers
 	#returns array with row with speakees
 	#ordered by column of speakers
-	def matrix_to_Connections(matrix)
+	def matrix_to_connections(matrix)
 		#get a list of speakers
 		names = @speakers	
 		#convert order matrix to array
