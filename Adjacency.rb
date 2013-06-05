@@ -89,6 +89,49 @@ require 'Matrix'
 		return order_array
 	end
 
+	#input symmetric adjacency matrix
+	def order_matrix_name(sym)
+		name = @speakers
+		matrix = sym
 
+		#power of the matrix we want
+		n = name.length
+		p = 1
+		master_connections_array = []
+
+		while p < (n) do 
+			matrix = matrix ** p
+
+			order_list = matrix_to_connections(matrix)
+
+			#removes repeats from order list for p>1
+			if p > 1
+				order_list_size = order_list.length
+				# puts order_list_size
+				l = 0
+				while l < order_list_size do
+					if order_list[l] != nil
+					# puts order_list[l].inspect
+					# puts l
+					# puts master_connections_array[p-2].inspect
+					order_list[l] = order_list[l]-master_connections_array[p-2][l]
+					end
+					l += 1
+				end
+				# puts master_connections_array[p-1].inspect
+				# puts order_list.inspect
+			end
+
+			#add list to master connection array
+			master_connections_array << order_list
+			# puts master_connections_array.inspect
+			p += 1
+		end
+
+
+
+		return master_connections_array.insert(0, name)
+
+	end
 
 end

@@ -59,7 +59,6 @@ File.open('sample_input.txt', 'r') do |f1|
 	new_matrix = test.make_matrixarray
 	sym = test.symmetrize(new_matrix)
 	# hello = Find_Connections.new(test)
-
-	puts test.matrix_to_connections(sym).inspect
+	puts test.order_matrix_name(sym).inspect
 
 end
