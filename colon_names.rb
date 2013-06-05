@@ -57,7 +57,9 @@ File.open('sample_input.txt', 'r') do |f1|
 	puts all_speakers
 	test = Adjacency.new(connections_hash)
 	new_matrix = test.make_matrixarray
-	puts test.symmetrize(new_matrix)
+	sym = test.symmetrize(new_matrix)
 	# hello = Find_Connections.new(test)
+
+	puts test.matrix_to_connections(sym)
 
 end

@@ -54,6 +54,41 @@ require 'Matrix'
 		return second_matrix
 	end
 
+	#accepts order matrix and list of speakers
+	#returns array with row with speakees
+	#ordered by column of speakers
+	def matrix_to_Connections(matrix)
+		#get a list of speakers
+		names = @speakers	
+		#convert order matrix to array
+		m = matrix.to_a()
+		size = m.length
+		i = 0
+
+		order_array = []
+		while i < size do
+			speaker = []
+			#Search through each row
+			m[i].each_with_index do |x,index|
+				if x == 1
+					#check not in diagonal
+					if index != i
+					speaker << names[index]
+					end
+				else
+					#Do nothing not connected
+				end	
+			end
+
+
+			#Returns links with associated name
+			order_array << speaker  
+			i += 1
+		end 
+
+		return order_array
+	end
+
 
 
 end
