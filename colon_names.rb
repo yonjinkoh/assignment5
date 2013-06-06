@@ -7,21 +7,12 @@ require_relative 'Find_Connections'
 
 File.open('complex_input.txt', 'r') do |f1|  
 
-	  while line = f1.gets
+	#Parses text file line-by-line to get
+	#list of speakers and recipients
+	while line = f1.gets
 
 	  	parsed = Parser.new(line)
-
-		# puts line
-
-		# #Gets the speaker name
-		# speaker = line[/\w+/]
-
-		# #Gets the spoken to name(s)
-		# speakee = line.scan(/\@\w+/)
-		# speakee.map!{ |element| element.gsub(/@/, '') }
-
 		speaker = parsed.sender
-
 		speakee = parsed.receiver
 
 	    	#Checks if speaker exists
@@ -38,18 +29,11 @@ File.open('complex_input.txt', 'r') do |f1|
 			end
 	end
 	
+	#Get the connections as has
 	connections_hash = Speaker.connections
-	
 
-	# #Example code to get all speakers
-	all_speakers = Speaker.list_speakers
-
-
+	#output file with answer
 	test = Adjacency.new(connections_hash)
-	new_matrix = test.make_matrixarray
-	sym = test.symmetrize(new_matrix)
-
-	final_array = test.order_matrix_name(sym)
-	puts test.print_output(final_array)
+	test.produce_connections
 
 end

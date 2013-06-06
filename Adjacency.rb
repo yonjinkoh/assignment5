@@ -18,7 +18,7 @@ require 'Matrix'
 			end
 
 		end
-		# puts indexarray.inspect
+
 		#Create row of length @speakers
 		matrixrow = Array.new(@speakers.length, 0)
 		indexarray.each do |i|
@@ -41,8 +41,6 @@ require 'Matrix'
 	def symmetrize(array)
 		first_matrix = Matrix.rows(array)
 		first_matrix.each_with_index do |e, row, col|
-	# puts "#{e} at #{row}, #{col}"
-	# puts our_matrix[col, row]
 
 			unless e == first_matrix[col, row]
 				if e == 0
@@ -84,7 +82,6 @@ require 'Matrix'
 				end	
 			end
 
-
 			#Returns links with associated name
 			order_array << speaker  
 			i += 1
@@ -96,19 +93,19 @@ require 'Matrix'
 	#input symmetric adjacency matrix
 	def order_matrix_name(sym)
 		name = @speakers
-		matrix = sym
 
 		#power of the matrix we want
 		n = name.length
 		p = 1
 		master_connections_array = []
 
+		#loop over the max number of path lengths
 		while p < (n) do 		
-			matrix = matrix ** p
+			matrix = sym ** p
 
-			if p > 4
-			#normalization number
-			puts matrix.to_a().class
+			#replaces large number with smaller one
+			#so matrix multiplication takes shorter
+			if p > 3
 			to_normalize = matrix.to_a()
 				to_normalize.each_with_index do |x, indexA|
 					x.each_with_index do |y, indexB|
@@ -119,12 +116,10 @@ require 'Matrix'
 				end
 			
 			matrix = Matrix.rows(to_normalize)
-
 			end
 
-			puts matrix.trace
-
-
+			#Gets a list of recipients names and puts into an array
+			#with rows corresponding to speaker array row
 			order_list = matrix_to_connections(matrix)
 
 			#removes repeats from order list for p>1
@@ -145,23 +140,23 @@ require 'Matrix'
 					end
 					l += 1
 				end
-				# puts master_connections_array[p-1].inspect
-				# puts order_list.inspect
 			end
 
 			#add list to master connection array
 			master_connections_array << order_list
-			# puts master_connections_array.inspect
+
 			p += 1
 		end
 
-
-
+		#Adds a list of speakers to the start of the array
 		return master_connections_array.insert(0, name)
 
 	end
 
-		def print_output(a)
+	#Takes A large array output with information
+	#about connections and formats and prints into txt file
+	def print_output(a)
+		#output name of the connects
 		File.open('complex_output.txt', 'w') do |f1|
 			all_speakers = a[0]
 			a_length = a.length
@@ -181,4 +176,19 @@ require 'Matrix'
 			end
 		end
 	end
+
+	def produce_connections
+		#get adjacency matrix as array
+		new_matrix = make_matrixarray
+		#Find symmetric connections and reutrn matrix
+		sym = symmetrize(new_matrix)
+		#Using speaker list and symmetric adjacency matrix
+		#produce list of degree of separation of someone
+		final_array = order_matrix_name(sym)
+		#Organize output array into human readable form
+		#put into file
+		print_output(final_array)
+	end
+
+#End of Class	
 end

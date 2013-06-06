@@ -45,24 +45,24 @@ while p < (n) do
 
 	#matrix_to_connections_block end
 
-	puts "p is #{p}"
-	#removes repeats from order list for p>1
-	if p > 1
-		order_list_size = order_list.length
-		# puts order_list_size
-		l = 0
-		while l < order_list_size do
-			if order_list[l] != nil
-			# puts order_list[l].inspect
-			# puts l
-			# puts master_connections_array[p-2].inspect
-			order_list[l] = order_list[l]-master_connections_array[p-2][l]
-			end
-			l += 1
-		end
-		# puts master_connections_array[p-1].inspect
-		# puts order_list.inspect
-	end
+	# puts "p is #{p}"
+	# #removes repeats from order list for p>1
+	# if p > 1
+	# 	order_list_size = order_list.length
+	# 	# puts order_list_size
+	# 	l = 0
+	# 	while l < order_list_size do
+	# 		if order_list[l] != nil
+	# 		# puts order_list[l].inspect
+	# 		# puts l
+	# 		# puts master_connections_array[p-2].inspect
+	# 		order_list[l] = order_list[l]-master_connections_array[p-2][l]
+	# 		end
+	# 		l += 1
+	# 	end
+	# 	# puts master_connections_array[p-1].inspect
+	# 	# puts order_list.inspect
+	# end
 
 	#add list to master connection array
 	master_connections_array << order_list
